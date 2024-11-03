@@ -1,0 +1,210 @@
+﻿@model HungManhProject.Models.Product
+
+@{
+    ViewBag.Title = @Html.DisplayFor(model => model.title);
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var format = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+}
+
+<style>
+
+    /* The Modal (background) */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        padding-top: 100px; /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    /* Modal Content */
+    .modal-content {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+    }
+
+    /* The Close Button */
+    .close {
+        color: #aaaaaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+</style>
+
+<main class="mainContent-theme ">
+    <div id="product" class="productDetail-page">
+        <div class="breadcrumb-shop">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pd5  ">
+                        <ol class="breadcrumb breadcrumb-arrows" itemscope itemtype="http://schema.org/BreadcrumbList">
+                            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                                <a href="/" target="_self" itemprop="item"><span itemprop="name">Trang chủ</span></a>
+                                <meta itemprop="position" content="1" />
+                            </li>
+
+
+
+                            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                                <a href="/collections/shop" target="_self" itemprop="item">
+                                    <span itemprop="name">ALL SHOP</span>
+                                </a>
+                                <meta itemprop="position" content="2" />
+                            </li>
+
+                            <li class="active" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                                <span itemprop="item" content="">
+                                    <span itemprop="name">@Html.DisplayFor(model => model.title)</span>
+                                </span>
+                                <meta itemprop="position" content="3" />
+                            </li>
+
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="product-detail-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="row product-detail-main pr_style_02">
+                            <div class="col-md-8 col-sm-12 col-xs-12">
+                                <div class="product-gallery">
+                                    <div class="product-image-detail box__product-gallery scroll">
+                                        <ul id="sliderproduct" class="site-box-content slide_product clearfix">
+
+                                            <li class="product-gallery-item gallery-item">
+                                                <img class="product-image-feature" src="@Html.DisplayFor(model => model.img)" alt=" @Html.DisplayFor(model => model.title) ">
+                                            </li>
+
+                                            <li class="product-gallery-item gallery-item">
+                                                <img class="product-image-feature" src="@Html.DisplayFor(model => model.img_loop)" alt=" @Html.DisplayFor(model => model.title) ">
+                                            </li>
+
+                                            <li class="product-gallery-item gallery-item">
+                                                <img class="product-image-feature" src="@Html.DisplayFor(model => model.img2)" alt=" @Html.DisplayFor(model => model.title) ">
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-4 col-sm-12 col-xs-12 product-content-desc" style="position:sticky" id="detail-product">
+                                <div class="product-title">
+                                    <h1>@Html.DisplayFor(model => model.title)</h1>
+                                </div>
+                                <div class="product-price" id="price-preview">
+
+                                    <span class="pro-price">@string.Format(format, "{0:c0}", Model.unit_price)</span>
+
+                                </div>
+                                <div class="product-price">
+                                    @Html.DropDownList("SIZE", (IEnumerable<SelectListItem>)ViewBag.variantList, new { @class = "form-control" })
+                                </div>
+                                <div class="swatch clearfix">
+                                    <button type="button" id="add-to-cart" class=" add-to-cartProduct button dark btn-addtocart addtocart-modal " onclick="location.href='@Url.Action("ThemCart", "Cart", new { @id = Model.product_id, @strURL =
+                                                Request.Url.ToString() })'" name="add">
+                                        Thêm vào giỏ
+                                    </button>
+                                </div>
+                                <div class="product-description">
+                                    <div class="title-bl" style="padding-top: 45px !important;">
+                                        <h2>Mô tả</h2>
+                                    </div>
+                                    <div class="description-content">
+                                        <div class="description-productdetail">
+                                            <p>@Html.DisplayFor(model => model.description)</p>
+                                            @if (Model.category_id == 1 || Model.category_id == 2 || Model.category_id == 3 || Model.category_id == 4)
+                                            {
+                                                <p><strong>Chi tiết sản phẩm:</strong></p>
+                                                <p>• Chất liệu: @Html.DisplayFor(model => model.chatlieu)</p>
+                                                <p>• Kỹ thuật: @Html.DisplayFor(model => model.kithuat)</p>
+                                                <p>• Size: @Html.DisplayFor(model => model.size)</p>
+                                                <p><strong>Size và cách đo áo:</strong></p>
+                                                <p style="text-align: center"><img src="//file.hstatic.net/200000104195/file/untitled-1_b5dedb1a86a74dc2916bbd201b1db2a5.jpg"></p>
+                                            }
+                                            else if (Model.category_id == 5 || Model.category_id == 6)
+                                            {
+                                                <p><strong>Chi tiết sản phẩm:</strong></p>
+                                                <p>• Size: @Html.DisplayFor(model => model.size)</p>
+                                                <p><strong>Size và cách đo giày:</strong></p>
+                                                <!-- Trigger/Open The Modal -->
+                                                <button type="button" class="button dark btn-addtocart" style="line-height: 10px; padding: 10px 20px; width: 40%" id="myBtn">Bảng Size</button>
+
+                                                <!-- The Modal -->
+                                                <div id="myModal" class="modal">
+
+                                                    <!-- Modal content -->
+                                                    <div class="modal-content">
+                                                        <span class="close">&times;</span>
+                                                        <p style="text-align: center"><img src="https://sneakerholicvietnam.vn/wp-content/uploads/2021/11/size-nhieu-brand-4.png"></p>
+                                                    </div>
+
+                                                </div>
+                                            }
+                                            else if (Model.category_id == 7 || Model.category_id == 8)
+                                            {
+                                                <p><strong>Chi tiết sản phẩm:</strong></p>
+                                                <p>• Chất liệu: @Html.DisplayFor(model => model.chatlieu)</p>
+                                                <p>• Size: @Html.DisplayFor(model => model.size)</p>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+<script>
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks the button, open the modal
+    btn.onclick = function () {
+        modal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>

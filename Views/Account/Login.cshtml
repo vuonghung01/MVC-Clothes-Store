@@ -1,0 +1,91 @@
+﻿@model HungManhProject.Models.user
+
+@{
+    ViewBag.Title = "Tài khoản";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main class="mainContent-theme ">
+    <div class="layout-account">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6 col-xs-12 wrapbox-heading-account">
+                    <div class="header-page clearfix">
+                        <h1>Đăng nhập</h1>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xs-12 wrapbox-content-account ">
+                    <div id="login" class="userbox">
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                            <div id="form-username" class="clearfix large_form">
+                                <label for="username" class="label icon-field"><i class="icon-login icon-user "></i></label>
+                                <input required="" type="text" value="" name="username" placeholder="Nhập tên đăng nhập của bạn" id="username" class="text" size="30">
+                                @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div id="form-password" class="clearfix large_form">
+                                <label for="password" class="label icon-field"><i class="icon-login icon-shield "></i></label>
+                                <input required="" type="password" value="" placeholder="Nhập mật khẩu của bạn" name="password" id="password" class="password text" size="30">
+                                @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="clearfix action_account_custommer">
+                                <div class="action_bottom button dark">
+                                    <input class="btn btn-signin" type="submit" value="Đăng nhập">
+                                </div>
+                                <div class="req_pass">
+                                    <a href="#" onclick="showRecoverPasswordForm();return false;" style="color:black">Quên mật khẩu?</a><br>
+                                    hoặc <a href="/account/register" title="Đăng ký" style="color:black">Đăng ký</a>
+                                </div>
+                            </div>
+
+                        }
+                    </div>
+
+                    <div id="recover-password" style="display: none;" class="userbox">
+                        <div class="accounttype" style="padding-left:75px"><h2>Phục hồi mật khẩu</h2></div>
+                        <form accept-charset="UTF-8" action="/account/recover" method="post">
+                            <input name="form_type" type="hidden" value="recover_customer_password">
+                            <input name="utf8" type="hidden" value="✓">
+
+
+                            <div class="clearfix large_form large_form-mr10">
+                                <label for="email" class="icon-field"><i class="icon-login icon-envelope "></i></label>
+                                <input type="email" value="" size="30" name="email" placeholder="Email" id="recover-email" class="text">
+                            </div>
+
+                            <div class="clearfix action_account_custommer">
+                                <div class="action_bottom button dark">
+                                    <input class="btn" type="submit" value="Gửi">
+                                </div>
+                                <div class="req_pass">
+                                    <a href="#" onclick="hideRecoverPasswordForm();return false;" style="color:black">Hủy</a>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        function showRecoverPasswordForm() {
+            document.getElementById('recover-password').style.display = 'block';
+            document.getElementById('login').style.display = 'none';
+        }
+
+        function hideRecoverPasswordForm() {
+            document.getElementById('recover-password').style.display = 'none';
+            document.getElementById('login').style.display = 'block';
+        }
+
+        if (window.location.hash == '#recover') { showRecoverPasswordForm() }
+    </script>
+</main>

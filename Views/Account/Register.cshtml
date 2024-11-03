@@ -1,0 +1,92 @@
+﻿@model HungManhProject.Models.user
+
+@{
+    ViewBag.Title = "Tạo tài khoản";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main class="mainContent-theme ">
+    <div class="layout-account">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6 col-xs-12 wrapbox-heading-account">
+                    <div class="header-page clearfix">
+                        <h1>Tạo tài khoản</h1>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xs-12 wrapbox-content-account ">
+                    <div class="userbox">
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                            <div id="form-name" class="clearfix large_form">
+                                <label for="name" class="label icon-field"><i class="icon-login icon-user "></i></label>
+                                <input required="" type="text" value="" name="name" placeholder="Nhập họ và tên của bạn" id="name" class="text" size="30">
+                                @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div id="form-username" class="clearfix large_form">
+                                <label for="username" class="label icon-field"><i class="icon-login icon-user "></i></label>
+                                <input required="" type="text" value="" name="username" placeholder="Nhập tên đăng nhập bạn muốn" id="username" class="text" size="30">
+                                @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div id="form-password" class="clearfix large_form">
+                                <label for="password" class="label icon-field"><i class="icon-login icon-shield "></i></label>
+                                <input required="" type="password" value="" placeholder="Nhập mật khẩu của bạn" name="password" id="password" class="password text" size="30">
+                                @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div id="form-passwordconfirm" class="clearfix large_form">
+                                <label for="password" class="label icon-field"><i class="icon-login icon-shield "></i></label>
+                                <input required="" type="password" value="" placeholder="Nhập lại mật khẩu của bạn" name="passwordconfirm" data-
+                                       val="true" data-val-required="Phải nhập mật khẩu xác nhận!" id="password" class="password text" size="30" aria-describedby="passwordconfirm-error" aria-invalid="true">
+                                @ViewData["Nhappasswordconfirm"]
+                                @ViewData["passwordconfirm"]
+                            </div>
+
+                            <div id="form-email" class="clearfix large_form">
+                                <label for="email" class="label icon-field"><i class="icon-login icon-envelope "></i></label>
+                                <input required="" type="email" value="" placeholder="Nhập email của bạn" name="email" id="email" class="text" size="30">
+                                @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div id="form-address" class="clearfix large_form">
+                                <label for="address" class="label icon-field"><i class="icon-login icon-envelope "></i></label>
+                                <input required="" type="text" value="" placeholder="Nhập địa chỉ của bạn" name="address" id="address" class="text" size="30">
+                                @Html.ValidationMessageFor(model => model.address, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div id="form-phone" class="clearfix large_form">
+                                <label for="phone" class="label icon-field"><i class="icon-login icon-envelope "></i></label>
+                                <input required="" type="text" value="" placeholder="Nhập số điện thoại của bạn" name="phone" id="phone" class="text" size="30">
+                                @Html.ValidationMessageFor(model => model.phone, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div id="form-birthdate" class="clearfix large_form">
+                                <label for="birthdate" class="label icon-field"><i class="icon-login icon-envelope "></i></label>
+                                <input required="" type="date" value="" name="birthdate" id="birthdate" class="text" size="30">
+                            </div>
+
+                            <div class="clearfix action_account_custommer">
+                                <div class="action_bottom button dark">
+                                    <input class="btn" type="submit" value="Đăng ký">
+                                </div>
+                            </div>
+                            <div style="padding-top:10px; font-size:15px !important; color:red;">
+                                @Html.ValidationMessage("RegisterError")
+                            </div>
+                            <div class="clearfix req_pass">
+                                <a class="come-back" href="/"><i class="fa fa-long-arrow-left"></i> Quay lại trang chủ</a>
+                            </div>
+                        }
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

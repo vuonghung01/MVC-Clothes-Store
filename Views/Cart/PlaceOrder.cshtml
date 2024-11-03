@@ -1,0 +1,160 @@
+﻿@model IEnumerable<HungManhProject.Models.Cart>
+@using HungManhProject.Models
+@{
+    ViewBag.Title = "PlaceOrder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var format = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+}
+
+
+@{
+    user kh = (user)Session["TaiKhoan"];
+}
+
+<main class="mainContent-theme ">
+    <div class="layoutPage-cart" id="layout-cart">
+        <div class="breadcrumb-shop">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pd5  ">
+                        <ol class="breadcrumb breadcrumb-arrows" itemscope="" itemtype="http://schema.org/BreadcrumbList">
+                            <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+                                <a href="/" target="_self" itemprop="item"><span itemprop="name">Trang chủ</span></a>
+                                <meta itemprop="position" content="1">
+                            </li>
+
+                            <li class="active" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+                                <span itemprop="item" content="/cart"><span itemprop="name">Giỏ hàng (@ViewBag.Tongsoluongsanpham)</span></span>
+                                <meta itemprop="position" content="2">
+                            </li>
+
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="wrapper-cart-detail" >
+            <div class="container-fluid">
+                <div class="heading-page">
+                    <div class="header-page">
+                        <h1>Thông tin đặt hàng</h1>
+                    </div>
+                </div>
+                <div class="row wrapbox-content-cart"style="background-image: url(//theme.hstatic.net/1000281824/1000704890/14/bg_header_image.png?v=520); width: 90%; margin-left: 88px">
+                    <div class="col-md-8 col-sm-8 col-xs-12 contentCart-detail">
+
+                        <div class="cart-container">
+                            <div class="cart-col-left">
+                                <div class="main-content-cart">
+                                    <div class="row">
+                                        <table align="center" class="table-cart userbox">
+                                                @using (Html.BeginForm())
+                                                {
+                                                    @Html.ValidationSummary(true)
+                                                    <tr style="height:40px;font-weight:bold; text-align:center; color:red">
+                                                        <td style="padding-left:15px">Họ tên khách hàng: </td>
+                                                        <td>
+                                                            <input type="text" value="@kh.name" name="username" readonly>
+                                                        </td>
+                                                        <td style="padding-left:15px">Email: </td>
+                                                        <td>
+                                                            <input type="text" value="@kh.email" name="email" readonly>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr style="height:40px;font-weight:bold; text-align:left; color:red">
+                                                        <td style="padding-left:15px">Địa chỉ: </td>
+                                                        <td>
+                                                            <input type="text" value="@kh.address" name="address" readonly>
+                                                        </td>
+                                                        <td style="padding-left:15px">Điện thoại: </td>
+                                                        <td>
+                                                            <input type="text" value="@kh.phone" name="phone" readonly>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr style="height:40px;font-weight:bold; text-align:left; color:red">
+                                                        <td style="padding-left:15px">Ngày đặt: </td>
+                                                        <td>
+                                                            <input type="text" value="@DateTime.Now.ToShortDateString()" name="ngaydat" readonly>
+                                                        </td>
+                                                        <td style="padding-left:15px">Ngày giao: </td>
+                                                        <td><input type="date" name="NgayGiao" /></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input class="btn btn-success" type="submit" onclick="location.href'@Url.Action("ConfirmOrder","Cart")'" value="Xác nhận" style="padding:0 30px; height: 55px; line-height: 55px; text-transform:uppercase; font-weight:600"></td>
+                                                    </tr>
+                                                }
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- End cart -->
+                    </div>
+                </div>
+
+                <div class="row wrapbox-content-cart">
+                    <div class="row">
+                        @foreach (var item in Model)
+                        {
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <table class="table-cart">
+                                    <tbody>
+
+                                        <tr class="line-item-container">
+                                            <td class="image">
+                                                <div class="product_image">
+                                                    <a href="@Url.Action("productDetail", "products", new { id = item.id, slug = item.ten.utf8Convert() })">
+                                                        <img src="@item.hinh" alt="@item.ten">
+                                                    </a>
+
+                                                </div>
+                                            </td>
+                                            <td class="item">
+
+                                                <h3><a href="@Url.Action("productDetail", "products", new { id = item.id, slug = item.ten.utf8Convert() })">@item.ten</a> </h3>
+
+                                                <p>
+                                                    <span class="pri">@string.Format(format, "{0:c0}", item.gia)</span>
+
+                                                </p>
+
+                                                <div class="qty quantity-partent qty-click clearfix">
+                                                    <input type="text" size="4" name="txtSoLg" min="1" value="@item.iSoluong" class="tc line-item-qty item-quantity">
+                                                </div>
+
+                                                <p class="price">
+                                                    <span class="text">Thành tiền:</span>
+                                                    <span class="line-item-total" style="font-size:26px">@string.Format(format, "{0:c0}", item.dThanhtien)</span>
+                                                </p>
+
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        }
+
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <table class="table-cart">
+                                <tr style="font-weight:bold; text-align:left; color:red">
+                                    <td colspan="2"> Số loại sản phẩm: @ViewBag.Tongsoluongsanpham </td>
+                                    <td colspan="2"> Số lượng sản phẩm: @ViewBag.Tongsoluong </td>
+                                    <td colspan="4"> Tổng tiền: @String.Format("{0:0,0}", @ViewBag.Tongtien) VNĐ</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+</main>

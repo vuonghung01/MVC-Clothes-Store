@@ -1,0 +1,170 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/roboto.css" rel="stylesheet" />
+    <link href="~/Content/styles.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.min.1.11.0.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    @*@Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")*@
+    <link href="~/Content/vuonghung.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="mainHeader--height" style="min-height: 102px;">
+        <header class="main-header mainHeader_tempcus">
+            <div class="header-top pad-header">
+                <div class="header-logo">
+                    <div class="wrap-logo">
+                        <a class="main-logo" style="text-decoration: none; color:black" href="/">Online Sneaker Store</a>
+                        <p class="sub-logo">
+                            Hàng chính hãng giá tốt #OSS
+                        </p>
+                    </div>
+                    <div class="h-login">
+                        @if (Session["TaiKhoan"] != null)
+                        {
+                            <a href="/account/account_info" style="text-decoration: none">Chào, @Session["name"].ToString()</a>
+                            <span style="margin: 5px ">|</span>
+                            <a href="/account/logout" style="text-decoration: none">Đăng xuất</a>
+                        }
+                        else
+                        {
+                            <a href="/account/login" style="text-decoration: none">Đăng nhập</a>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="header-middle pad-header">
+                <ul class="heaer-action">
+                    <li class="item-cart header-action header-action_cart">
+                        <div class="header-action_text">
+                            <a class="header-action__link header-action-toggle" href="/cart" id="site-cart-handle" aria-label="Giỏ hàng" title="Giỏ hàng"><img src="//theme.hstatic.net/200000104195/1000677830/14/cart-icon.png?v=340"></a>
+                            <div class="header-action_dropdown">
+                                <span class="box-triangle">
+                                    <svg viewBox="0 0 20 9" role="presentation">
+                                        <path d="M.47108938 9c.2694725-.26871321.57077721-.56867841.90388257-.89986354C3.12384116 6.36134886 5.74788116 3.76338565 9.2467995.30653888c.4145057-.4095171 1.0844277-.40860098 1.4977971.00205122L19.4935156 9H.47108938z" fill="#ffffff"></path>
+                                    </svg>
+                                </span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="header-menu pad-header">
+                <nav class="id-nav">
+                    <li class="active core-menu">
+                        <a href="/">HOME</a>
+                    </li>
+                    <li class="core-menu">
+                        <a href="/collections/sneaker">GIÀY</a>
+                    </li>
+                    <li class="core-menu">
+                        <a href="/collections/slipper">DÉP</a>
+                    </li>
+                    <li class="core-menu">
+                        <a href="/collections/accessories">PHỤ KIỆN</a>
+                    </li>
+                    <li class="core-menu">
+                        <a href="/collections/glasses">KÍNH</a>
+                    </li>
+                    <li class="core-menu">
+                        <a href="/collections/clothing">ÁO QUẦN</a>
+                    </li>
+                    <li class="core-menu">
+                        <a href="/collections/crep">SNEAKERS CLEANER</a>
+                    </li>
+                </nav>
+            </div>
+            <div class="menu-align">
+                <div class="item-search">
+                    <form action="/search" class="searchform searchform-categoris ultimate-search">
+                        <div class="wpo-search-inner">
+                            <input type="hidden" name="type" value="product">
+                            <input style="text-align:center" required="" id="inputSearchAuto-mb" name="q" maxlength="40" autocomplete="off" class="searchinput input-search search-input" type="text" size="20" placeholder="Tìm kiếm sản phẩm, thương hiệu,..." aria-label="Search">
+                        </div>
+                        <button type="submit" class="btn-search btn" id="search-header-btn-mb" aria-label="Tìm kiếm">
+                            <img src="//theme.hstatic.net/200000104195/1000677830/14/search-icon.png?v=340" alt="Search">
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </header>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-12 col-sm-4 col-md-4 home-banner-pd">
+                    <div class="block-banner-category">
+                        <a class="link-banner" href="https://oss.com.vn/collections/all">
+                            <img class="" src="//theme.hstatic.net/1000361048/1000460005/14/block_home_category1.jpg?v=844" alt="">
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-4 home-banner-pd">
+                    <div class="block-banner-category">
+                        <a class="link-banner" href="https://oss.com.vn/collections/all">
+                            <img class="" src="//theme.hstatic.net/1000361048/1000460005/14/block_home_category2.jpg?v=844" alt="">
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-4 home-banner-pd">
+                    <div class="block-banner-category">
+                        <a class="link-banner" href="https://oss.com.vn/collections/all">
+                            <img class="" src="//theme.hstatic.net/1000361048/1000460005/14/block_home_category3.jpg?v=844" alt="">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @RenderBody()
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
+    <script src="~/Scripts/scripts.js"></script>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+<footer class=" ">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="line"></div>
+            <div class="footer-left col-md-9 col-sm-9 col-xs-12">
+
+                <p>ONLINE ONLY</p>
+
+                <p>www.facebook.com/onlinesneakerstore</p>
+
+                <p>www.instagram.com/oss.com.vn</p>
+
+                <p>onlinesneakerstore.vn@gmail.com</p>
+
+                <p>Copyright © 2021 <a href="https://onlinesneakerstore.com" style="color:black"> OSS</a>.</p>
+
+            </div>
+            <div class="footer-right col-md-3 col-sm-3 col-xs-12">
+                <ul class="menu-footer">
+
+                    <li><a href="/search" style="color:black">Tìm kiếm</a></li>
+
+                    <li><a href="/pages/about-us" style="color:black">Giới thiệu</a></li>
+
+                    <li><a href="/pages/chinh-sach-doi-tra" style="color:black">Chính sách đổi trả</a></li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+</html>

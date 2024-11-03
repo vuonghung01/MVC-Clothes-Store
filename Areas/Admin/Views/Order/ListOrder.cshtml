@@ -1,0 +1,78 @@
+﻿@model IEnumerable<HungManhProject.Models.Order>
+
+@{
+    ViewBag.Title = "ListOrder";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout-admin.cshtml";
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.order_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.user_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.phone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.discount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.thanhtoan)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.giaohang)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ngaydat)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ngaygiao)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.order_id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.user_id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.phone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.discount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.thanhtoan)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.giaohang)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ngaydat)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ngaygiao)
+        </td>
+    </tr>
+}
+
+</table>

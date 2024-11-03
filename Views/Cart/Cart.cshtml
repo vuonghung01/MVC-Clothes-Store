@@ -1,0 +1,225 @@
+﻿@model IEnumerable<HungManhProject.Models.Cart>
+
+@{
+    ViewBag.Title = "Giỏ hàng của bạn";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var format = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+}
+
+<main class="mainContent-theme ">
+    <div class="layoutPage-cart" id="layout-cart">
+        <div class="breadcrumb-shop">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pd5  ">
+                        <ol class="breadcrumb breadcrumb-arrows" itemscope="" itemtype="http://schema.org/BreadcrumbList">
+                            <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+                                <a href="/" target="_self" itemprop="item"><span itemprop="name">Trang chủ</span></a>
+                                <meta itemprop="position" content="1">
+                            </li>
+
+                            <li class="active" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+                                <span itemprop="item" content="/cart"><span itemprop="name">Giỏ hàng (@ViewBag.Tongsoluongsanpham)</span></span>
+                                <meta itemprop="position" content="2">
+                            </li>
+
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="wrapper-cart-detail">
+            <div class="container-fluid">
+                <div class="heading-page">
+                    <div class="header-page">
+                        <h1>Giỏ hàng của bạn</h1>
+                        <p class="count-cart">Có <span>@ViewBag.Tongsoluongsanpham sản phẩm</span> trong giỏ hàng</p>
+                    </div>
+                </div>
+                <div class="row wrapbox-content-cart">
+                    <div class="col-md-8 col-sm-8 col-xs-12 contentCart-detail">
+
+                        <div class="cart-container">
+                            <div class="cart-col-left">
+                                <div class="main-content-cart">
+                                    <div class="row">
+                                        @foreach (var item in Model)
+                                        {
+                                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                                <table class="table-cart">
+                                                    <tbody>
+
+                                                        @using (Html.BeginForm("CapnhatCart", "Cart", new { @id = item.id }))
+                                                        {
+                                                            <tr class="line-item-container">
+                                                                <td class="image">
+                                                                    <div class="product_image">
+                                                                        <a href="@Url.Action("productDetail", "products", new { id = item.id, slug = item.ten.utf8Convert() })">
+                                                                            <img src="@item.hinh" alt="@item.ten">
+                                                                        </a>
+
+                                                                    </div>
+                                                                </td>
+                                                                <td class="item">
+
+                                                                    <h3><a href="@Url.Action("productDetail", "products", new { id = item.id, slug = item.ten.utf8Convert() })">@item.ten</a> </h3>
+
+                                                                    <p>
+                                                                        <span class="pri">@string.Format(format, "{0:c0}", item.gia)</span>
+
+                                                                    </p>
+                                                                    <p class="variant">
+
+                                                                        <span class="variant_title">Color / Size</span>
+                                                                    </p>
+
+
+                                                                    <div class="qty quantity-partent qty-click clearfix">
+                                                                        <button type="button" class="qtyminus qty-btn">-</button>
+                                                                        <input type="text" size="4" name="txtSoLg" min="1" value="@item.iSoluong" class="tc line-item-qty item-quantity">
+                                                                        <button type="button" class="qtyplus qty-btn">+</button>
+                                                                    </div>
+
+                                                                    <p class="price">
+                                                                        <span class="text">Thành tiền:</span>
+                                                                        <span class="line-item-total" style="font-size:26px">@string.Format(format, "{0:c0}", item.dThanhtien)</span>
+                                                                    </p>
+
+                                                                </td>
+                                                                <td class="remove" style="padding-top: 6px;">
+                                                                    <button type="button" id="deleteCart" class=" add-to-cartProduct button dark btn-deleteupdateCart addtocart-modal " onclick="location.href='@Url.Action("XoaCart", "Cart", new { @id = item.id })'" style="margin-bottom: 4px;width: 100%" name="add">
+                                                                        Xóa
+                                                                    </button>
+
+                                                                    <br />
+                                                                    <button type="submit" id="updateCart" class=" add-to-cartProduct button dark btn-deleteupdateCart addtocart-modal " style="margin-bottom: 4px;width: 100%" name="add">
+                                                                        Cập nhật
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                        }
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        }
+
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <table class="table-cart">
+                                                <tr style="font-weight:bold; text-align:left; color:red">
+                                                    <td colspan="2"> Số loại sản phẩm: @ViewBag.Tongsoluongsanpham </td>
+                                                    <td colspan="2"> Số lượng sản phẩm: @ViewBag.Tongsoluong </td>
+                                                    <td colspan="5" style="padding-left">@Html.ActionLink("Xóa giỏ hàng", "XoaTatCaCart")</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-5 col-sm-12 col-xs-12">
+                                            <div class="sidebox-group">
+                                                <h4>Ghi chú đơn hàng</h4>
+                                                <div class="checkout-note clearfix">
+                                                    <textarea id="note" name="note" rows="4" placeholder="Ghi chú"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-7 col-sm-12 col-xs-12 hidden-xs">
+                                            <div class="sidebox-group sidebox-policy">
+                                                <h4>Chính sách mua hàng</h4>
+                                                <ul>
+                                                    <li>Sản phẩm được đổi 1 lần duy nhất, không hỗ trợ trả.</li>
+                                                    <li>Sản phẩm còn đủ tem, nhãn mác và chưa qua sử dụng.</li>
+                                                    <li>Sản phẩm nguyên giá được đổi trong vòng 5 ngày trên toàn hệ thống</li>
+                                                    <li>BẮT BUỘC CẦN CÓ VIDEO UNBOX ĐỂ GIẢI QUYẾT</li>
+                                                </ul>
+                                            </div>
+                                            <div class="cart-buttons hidden">
+                                                <button type="submit" id="update-cart" class="btn-update button dark hidden" name="update" value="">Cập nhật</button>
+                                                <button type="submit" id="checkout" class="btn-checkout button dark hidden" name="checkout" value="">Thanh toán</button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- End cart -->
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-12 sidebarCart-sticky" style="margin-top:-70px">
+                        <div class="sidebox-order">
+                            <div class="sidebox-order-inner">
+                                <div class="sidebox-order_title">
+                                    <h3>Thông tin đơn hàng</h3>
+                                </div>
+                                <div class="sidebox-order_total">
+                                    <p>
+                                        Tổng tiền:
+                                        <span class="total-price">@string.Format(format, "{0:c0}", @ViewBag.Tongtien)</span>
+                                    </p>
+                                </div>
+                                <div class="sidebox-order_text">
+                                    <p>
+                                        Phí vận chuyển sẽ được tính ở trang thanh toán.<br>
+                                        Bạn cũng có thể nhập mã giảm giá ở trang thanh toán.
+                                    </p>
+                                </div>
+                                <div class="sidebox-order_action">
+                                    <a class="button dark btncart-checkout" onclick="location.href='@Url.Action("PlaceOrder", "Cart")'">THANH TOÁN</a>
+                                    <p class="link-continue text-center">
+                                        <a href="/collections/shop">
+                                            <i class="fa fa-reply"></i> Tiếp tục mua hàng
+                                        </a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="sidebox-group sidebox-policy visible-xs">
+                            <h4>Chính sách mua hàng</h4>
+                            <ul>
+                                <li>Sản phẩm được đổi 1 lần duy nhất, không hỗ trợ trả.</li>
+                                <li>Sản phẩm còn đủ tem, nhãn mác và chưa qua sử dụng.</li>
+                                <li>Sản phẩm nguyên giá được đổi trong vòng 5 ngày trên toàn hệ thống</li>
+                                <li>BẮT BUỘC CẦN CÓ VIDEO UNBOX ĐỂ GIẢI QUYẾT</li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+	 function unPromote(tmp){
+		 var self = this;
+		 tmp += "&note="+$('#note').val();
+		 $.post('/cart', tmp).always(function() {
+			 setTimeout(function() { location.reload(); }, 500);
+		 });
+	 }
+		//debugger;
+		console.log("");
+
+		 $(document).on('click', '.qty-click .qtyplus', function(e){
+			 e.preventDefault();
+			 var input = $(this).parent('.quantity-partent').find('input');
+			 var currentVal = parseInt(input.val());
+			 if (!isNaN(currentVal)) {
+				 input.val(currentVal + 1);
+			 } else {
+				 input.val(1);
+			 }
+		 });
+			$(document).on('click', ".qty-click .qtyminus", function(e) {
+				e.preventDefault();
+				var input = $(this).parent('.quantity-partent').find('input');
+				var currentVal = parseInt(input.val());
+				if (!isNaN(currentVal) && currentVal > 1) {
+					input.val(currentVal - 1);
+				} else {
+					input.val(1);
+				}
+			});
+    </script>
+</main>

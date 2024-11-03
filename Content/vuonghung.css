@@ -1,0 +1,77 @@
+﻿body {
+    padding-bottom: 20px;
+}
+.setfont {
+    font-family: 'Quicksand', sans-serif !important;
+}
+.main-logo {
+    text-align: center;
+    text-decoration: none;
+    font-family: 'Quicksand', sans-serif !important;
+    font-size: 32px;
+    font-weight: bold;
+    color: #252a2b
+}
+.sub-logo {
+    text-align: center;
+    font-family: 'Quicksand', sans-serif !important;
+    font-size: 32px;
+    font-weight: normal;
+    line-height: 1;
+}
+.flex-row {
+    align-items: center;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    width: 100%;
+}
+.menu-align {
+    padding: 0px 450px;
+}
+.block-banner-category {
+    position: relative;
+    overflow: hidden;
+    background: #f4f4f4;
+}
+.home-banner-pd {
+    padding: 0;
+}
+.section-title-container {
+    margin-bottom: 1.5em;
+}
+.section-title {
+    align-items: center;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    position: relative;
+    width: 100%;
+}
+.section-title-center span {
+    text-align: center;
+}
+.section-title-center span {
+    margin:0 15px;
+}
+.section-title span {
+    text-transform:uppercase;
+}
+.section-title b {
+    background-color: currentColor;
+    display: block;
+    flex: 1;
+    height: 2px;
+    opacity: .1;
+}
+.parent {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.child {
+    flex: 1 0 21%; /* explanation below */
+    margin: 5px;
+    height: 100px;
+    background-color: transparent;
+}
